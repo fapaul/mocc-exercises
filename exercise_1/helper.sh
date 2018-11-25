@@ -1,13 +1,13 @@
 run() 
 {
     cmd=$1
-    end=$((SECONDS+2))
-    VALUES=(0)
+    end=$((SECONDS+20))
+    VALUES=()
     while [ $SECONDS -lt $end ]; do
-        VALUES+=$( ($cmd)  )
-        sleep 1
+        VALUES+=( $($cmd) )
+        #sleep 1
     done
-    echo $VALUES
+    #echo ${VALUES[@]}
     median "${VALUES[@]}"
 }
 
