@@ -1,0 +1,4 @@
+aws ec2 create-security-group --description ssh_only --group-name exercise_1_ssh # Create security group for custom rule
+aws ec2 authorize-security-group-ingress --group-name "exercise_1_ssh" --protocol tcp --port 22 --cidr 0.0.0.0/0 # Add port 22 custom rule to connect via ssh, allowing all ipv4 ranges
+aws ec2 import-key-pair --key-name ec2_exercise --public-key-material file://~/.ssh/id_rsa.pub # Assuming you have created an id_rsa pub/priv keypair this command uploads the pub key to aws ec2
+aws ec2 run-instances --security-groups exercise_1_ssh --image-id ami-0f9cf087c1f27d9b1 --count 1 --instance-type t1.micro --key-name ec2_exercise --query 'Instances[0].InstanceId' # Starting the instance with the created security group and your ssh pub key
