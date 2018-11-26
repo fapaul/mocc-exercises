@@ -1,0 +1,19 @@
+# 
+gcloud compute instances create mcc-ubuntu --image=ubuntu-minimal-1804-bionic-v20181120 --image-project=ubuntu-os-cloud --machine-type=f1-micro --zone=us-east1-c --tags=default-allow-ssh
+
+
+# Params
+
+--image=ubuntu-minimal-1804-bionic-v20181120
+# 
+
+--image-project=ubuntu-os-cloud
+# 
+
+--machine-type=f1-micro // Smallest machine? (Link?!)
+#
+
+--zone=us-east1-c // No particularly reason
+#
+
+--tags=default-allow-ssh // Allow ssh access
