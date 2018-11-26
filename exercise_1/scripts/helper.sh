@@ -20,9 +20,7 @@ median()
   if (( $nel % 2 == 1 )); then     # Odd number of elements
     val="${arr[ $(($nel/2)) ]}"
   else                             # Even number of elements
-    (( j=nel/2 ))
-    (( k=j-1 ))
-    (( val=(${arr[j]} + ${arr[k]})/2 ))
+      val="${arr[ $((($nel/2)-1)) ]}"
   fi
   echo $val
 }
