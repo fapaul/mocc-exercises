@@ -9,3 +9,17 @@ aws ec2 import-key-pair --key-name ec2_exercise --public-key-material file://~/.
 
 # Starting the instance with the created security group and your ssh pub key
 aws ec2 run-instances --security-groups exercise_1_ssh --image-id ami-0f9cf087c1f27d9b1 --count 1 --instance-type t1.micro --key-name ec2_exercise --query 'Instances[0].InstanceId'
+
+# Install gcc, fio and vim
+sudo apt-get update
+sudo apt-get install gcc
+sudo apt-get install fio
+sudo apt-get install vim
+
+# Copy scrips directory to instance
+scp -r scripts ubuntu@ip.compute-1.amazonaws.com:~
+
+# Add cron job for executing scripts every hour
+# Run scripts after each other to not influence each other by importing all other script by another script
+crontab -e
+30 * * * * cd /home/ubuntu/scripts && ./run_benchmarks.sh

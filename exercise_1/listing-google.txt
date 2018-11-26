@@ -21,3 +21,19 @@ gcloud compute --project "mcc-benchmarks" ssh --zone "us-east1-c" "mcc-ubuntu"
 
 --tags=default-allow-ssh //
 # Lässt eingehende Verbindungen auf dem TCP-Port 22 von jeder Quelle zu jeder Instanz im Netzwerk zu. Diese Regel hat die Priorität 65534.
+
+
+
+# Install gcc, fio and vim
+sudo apt-get update
+sudo apt-get install gcc
+sudo apt-get install fio
+sudo apt-get install vim
+
+# Copy scrips directory to instance
+scp -r scripts ubuntu@instance-name:~
+
+# Add cron job for executing scripts every hour
+# Run scripts after each other to not influence each other by importing all other script by another script
+crontab -e
+30 * * * * cd /home/ubuntu/scripts && ./run_benchmarks.sh
