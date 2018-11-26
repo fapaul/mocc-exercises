@@ -1,19 +1,23 @@
-# 
+# Command to fire up instance
 gcloud compute instances create mcc-ubuntu --image=ubuntu-minimal-1804-bionic-v20181120 --image-project=ubuntu-os-cloud --machine-type=f1-micro --zone=us-east1-c --tags=default-allow-ssh
 
+# Connect through ssh
+# Provide project name, zone where instance runs and instance name
+gcloud compute --project "mcc-benchmarks" ssh --zone "us-east1-c" "mcc-ubuntu"
 
-# Params
+# Explaining Params
 
 --image=ubuntu-minimal-1804-bionic-v20181120
-# 
+# The name of an image to clone.
 
 --image-project=ubuntu-os-cloud
-# 
+# The project name of the source image. Must also specify either --source-image or --source-image-family when using this flag.
 
 --machine-type=f1-micro // Smallest machine? (Link?!)
-#
+# Smallest instance type ; Taken from GUI https://console.cloud.google.com/compute/instancesAdd?project={projectName}
 
 --zone=us-east1-c // No particularly reason
-#
+# Mandatory: Specify any zone
 
---tags=default-allow-ssh // Allow ssh access
+--tags=default-allow-ssh //
+# Lässt eingehende Verbindungen auf dem TCP-Port 22 von jeder Quelle zu jeder Instanz im Netzwerk zu. Diese Regel hat die Priorität 65534.

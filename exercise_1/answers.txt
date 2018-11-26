@@ -1,0 +1,13 @@
+CPU benchmarks questions:
+1. 
+2.
+3.
+
+Memory benchmarks questions:
+1.
+2.
+3.
+
+Disk benchmarks questions:
+1.
+2.
