@@ -10,4 +10,4 @@ measuresequential()
     result=$(cat disk-sequential-temp | tail -1 | cut -d " " -f 10)
     echo $result
 }
-run measuresequential "results-measure-disk-random.csv"
+run measuresequential "results-measure-disk-seq.csv"
