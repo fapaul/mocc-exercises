@@ -1,14 +1,16 @@
 run() 
 {
     cmd=$1
+    output=$2
     end=$((SECONDS+2))
     VALUES=()
     while [ $SECONDS -lt $end ]; do
         VALUES+=( $($cmd) )
         #sleep 1
     done
-    #echo ${VALUES[@]}
-    median "${VALUES[@]}"
+    [ -e ./$output ] || echo "time,value" > $output 
+    timestamp=$(date +"%s")","
+    { printf $timestamp; median "${VALUES[@]}"; } >> $output
 }
 
 median() 

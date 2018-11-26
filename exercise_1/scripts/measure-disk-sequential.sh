@@ -9,12 +9,4 @@ measuresequential()
     result=$(cat disk-sequential-temp | tail -1 | cut -d " " -f 10)
     echo $result
 }
-
-# Add "time,value" header when first creating file
-# -e returns true if file exists
-[ -e ./results-measure-disk-random.csv ] || echo "time,value" > results-measure-disk-random.csv
-
-# Unix timestamp with seconds 
-timestamp=$(date +"%s")","
-
-{ printf $timestamp; run measuresequential; } >> results-measure-disk-random.csv
+run measuresequential "results-measure-disk-random.csv"
