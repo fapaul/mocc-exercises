@@ -13,7 +13,7 @@ run()
 
 median() 
 {
-  arr=($(printf '%d\n' "${@}" | sort -n))
+  arr=($(printf '%f\n' "${@}" | sort -n))
   nel=${#arr[@]}
   if (( $nel % 2 == 1 )); then     # Odd number of elements
     val="${arr[ $(($nel/2)) ]}"
