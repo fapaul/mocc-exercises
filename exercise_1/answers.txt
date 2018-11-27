@@ -11,3 +11,16 @@ Memory benchmarks questions:
 Disk benchmarks questions:
 1.
 2.
+
+
+
+Information to missing Fio results not working on Google Instance!
+
+Always same error:
+fio: job startup hung? exiting.
+fio: 1 job failed to start
+
+fio: terminating on signal 15
+
+Tried several options, including only reading or writing, minimising threads, ...
+Most of which worked on Linux Docker Instance

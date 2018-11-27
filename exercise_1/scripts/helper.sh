@@ -2,7 +2,7 @@ run()
 {
     cmd=$1
     output=$2
-    end=$((SECONDS+2))
+    end=$((SECONDS+20))
     VALUES=()
     while [ $SECONDS -lt $end ]; do
         VALUES+=( $($cmd) )

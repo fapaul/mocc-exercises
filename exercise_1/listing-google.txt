@@ -34,6 +34,6 @@ sudo apt-get install vim
 scp -r scripts ubuntu@instance-name:~
 
 # Add cron job for executing scripts every hour
-# Run scripts after each other to not influence each other by importing all other script by another script
+# We used a helper script to execute all scripts after one another to not influence each other
 crontab -e
 30 * * * * cd /home/ubuntu/scripts && ./run_benchmarks.sh
