@@ -8,13 +8,14 @@ This probably dont work out of the box inside a windows systems.
 Next the system root is used to decide if the bash script is used in windows or not and the regarding executable is called.
 The output is captured and the result is taken from a know position of the output.
 
-linpack.c runs 3 functions in a loop an benchmarks them.
+linpack.c runs 3 functions in a loop an benchmarks them. (nreps)
 The program allocates a 2D array and provide this to the functions:
     matgen - Fills the array with data
     dgefa - factors a double precision matrix by gaussian elimination
     dgesl - solves the double precision system a * x = b  or  trans(a) * x = b
 
-While only dgefa and dgesl are benchmarked.
+While only dgefa and dgesl are benchmarked by measuring the execution time. (tdgefa, tdgesl)
+The operations are can be computed by the size of the 2D array. (ops)
 
 kflops are then calculate by:  kflops=2.*nreps*ops/(1000.*(tdgefa+tdgesl));
 
@@ -22,13 +23,12 @@ kflops are then calculate by:  kflops=2.*nreps*ops/(1000.*(tdgefa+tdgesl));
 expect paravirtualization to affect the LINPACK benchmark? Why?
 
 Linpack measures the needed time to solve the equitation and divides it by the FLOPS needed.
-(kflops = 10^3flops)
-If the excution time is higher the measured kflops per second gets smaller.
+If the excution time is higher the measured kflops becomes smaller.
 Paravirtualization will effect the benchmark.
 Because it measures the kflops for the program not for the cpu.
 In paravirtualization the cpu can be shared between multiple guest systems.
 If more guest systems share the cpu linpack will share the cpu and the time to complete will be longer.
-Therefore the kflops per second will become smaller.
+Therefore the kflops will become smaller.
 
 3. Look at your LINPACK measurements. Are they consistent with your
 expectations? If not, what could be the reason?
