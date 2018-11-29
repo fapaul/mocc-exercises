@@ -37,13 +37,15 @@ Google:
     max	2219414.402 kflops
     min	 943616.87 kflops
 AWS:
-    TODO
+    max 1207363.522 kflops
+    min  117376.02 kflops
 
 The min kflops has factor of 2 compared to the max kflops.
 This is consistent with our expection.
 Because auf paravirtualization our instance shares the hardware with other instances.
 So on high workload for all instances the throughput for a instance can drop.
 Nevertheless the factor 2 is quite high, because this means the program took double the time finish.
+For ec2 the difference is significant larger between the min and max.
 
 ------
 
@@ -73,10 +75,13 @@ Google:
     min 7.719 seconds
 
 AWS: 
-    TODO
+    max 60.25 seconds
+    avg 13.544 seconds
+    min  5.847 seconds
 
 The most parts are consistent with our expectations. 
 But the factor 5 between max and min is a bit higher then we are expected.
+In comparison to the cpu benchmark where the ec2 was outperformed by google the memsweep test shows better write rates on ec2.
 
 ------
 
@@ -91,24 +96,25 @@ Google:
         See description [1] below .
 AWS:
     sequential:
-        TODO min
-        TODO max
+        max 39 mb/s
+        min 28.5 mb/s
     random:
-        TODO min
-        TODO max
+        max 2415 IOPS
+        min 752 IOPS
 
 1.Look at the disk measurements. Are they consistent with your expectations? If
 not, what could be the reason?
 
 The sequential write and read has a factor of 2 between min and max.
-We expected this behavior because multiple instance could share the same disk, which leads tp shared bandwitdh.
+We expected this behavior because multiple instance could share the same disk, which leads to shared bandwitdh.
 
-TODO random 
+The above described behavior is also shown by the random write benchmark since the phyical might be used by different machine in the same time which would result in additional overhead.
 
 2. Compare the results for the two operations (sequential, random). What are
 reasons for the differences?
 
-TODO
+Specifically for random operations the shared disk seems to be performance overhead. This might result due to the position of the disk head and potentially big movements. In contrary to the sequential operation where the head doesn't jump after finding the inital write position.
+
 
 ------
 [1]
