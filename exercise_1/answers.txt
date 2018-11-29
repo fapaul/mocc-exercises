@@ -36,12 +36,16 @@ expectations? If not, what could be the reason?
 Google:
     max	2219414.402 kflops
     min	 943616.87 kflops
+AWS:
+    TODO
 
 The min kflops has factor of 2 compared to the max kflops.
 This is consistent with our expection.
 Because auf paravirtualization our instance shares the hardware with other instances.
 So on high workload for all instances the throughput for a instance can drop.
 Nevertheless the factor 2 is quite high, because this means the program took double the time finish.
+
+------
 
 Memory benchmarks questions:
 1.Find out how the memsweep benchmark works by looking at the shell script
@@ -68,15 +72,46 @@ Google:
     avg 35.54 seconds
     min 7.719 seconds
 
+AWS: 
+    TODO
+
 The most parts are consistent with our expectations. 
-But the factor 5 between max and min is much higher then we are expected.
+But the factor 5 between max and min is a bit higher then we are expected.
+
+------
 
 Disk benchmarks questions:
-1.
-2.
 
+Google:
+    sequential:
+        max 36 mb/s
+        min 20.5 mb/s
+    random: 
+        Can't measure because of fio error only on google cloud.
+        See description [1] below .
+AWS:
+    sequential:
+        TODO min
+        TODO max
+    random:
+        TODO min
+        TODO max
 
+1.Look at the disk measurements. Are they consistent with your expectations? If
+not, what could be the reason?
 
+The sequential write and read has a factor of 2 between min and max.
+We expected this behavior because multiple instance could share the same disk, which leads tp shared bandwitdh.
+
+TODO random 
+
+2. Compare the results for the two operations (sequential, random). What are
+reasons for the differences?
+
+TODO
+
+------
+[1]
 Information to missing Fio results not working on Google Instance!
 
 Always same error:
