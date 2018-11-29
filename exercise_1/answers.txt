@@ -34,8 +34,8 @@ Therefore the kflops will become smaller.
 expectations? If not, what could be the reason?
 
 Google:
-    max	2219414.402
-    min	 943616.87
+    max	2219414.402 kflops
+    min	 943616.87 kflops
 
 The min kflops has factor of 2 compared to the max kflops.
 This is consistent with our expection.
@@ -44,9 +44,32 @@ So on high workload for all instances the throughput for a instance can drop.
 Nevertheless the factor 2 is quite high, because this means the program took double the time finish.
 
 Memory benchmarks questions:
-1.
-2.
-3.
+1.Find out how the memsweep benchmark works by looking at the shell script
+and the C code. Would you expect virtualization to affect the memsweep
+benchmark? Why?
+
+memsweep.sh works same as linpack.sh besides it takes the memsweep.c file instead of the linpack.c and the echoed value is captured from another position.
+
+memsweep.c allocates an array of size 8096 * 4096.
+Then it measures the time for iterate 10 times over the array,
+reassigns all the values from another field of the array and 
+frees the array.
+The measured time is then returned in second.
+
+We expect virtualization effects the benchmark.
+Because it adds additional indirection while accessing memory.
+Also the time is meassured, therefore if the cpu is shared the execution time will also increase.
+
+2.. Look at your memsweep measurements. Are they consistent with your
+expectations? If not, what could be the reason?
+
+Google:
+    max 38.999 seconds
+    avg 35.54 seconds
+    min 7.719 seconds
+
+The most parts are consistent with our expectations. 
+But the factor 5 between max and min is much higher then we are expected.
 
 Disk benchmarks questions:
 1.
