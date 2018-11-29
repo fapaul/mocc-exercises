@@ -1,7 +1,47 @@
 CPU benchmarks questions:
-1. 
-2.
-3.
+1. Look at linpack.sh and linpack.c and shortly describe how the benchmark
+works.
+
+linpack.sh checks if a excuable linpack is existing if not it compiles tries to copile it from linepack.c.
+This probably dont work out of the box inside a windows systems.
+
+Next the system root is used to decide if the bash script is used in windows or not and the regarding executable is called.
+The output is captured and the result is taken from a know position of the output.
+
+linpack.c runs 3 functions in a loop an benchmarks them.
+The program allocates a 2D array and provide this to the functions:
+    matgen - Fills the array with data
+    dgefa - factors a double precision matrix by gaussian elimination
+    dgesl - solves the double precision system a * x = b  or  trans(a) * x = b
+
+While only dgefa and dgesl are benchmarked.
+
+kflops are then calculate by:  kflops=2.*nreps*ops/(1000.*(tdgefa+tdgesl));
+
+2. Find out what the LINPACK benchmark measures (try Google). Would you
+expect paravirtualization to affect the LINPACK benchmark? Why?
+
+Linpack measures the needed time to solve the equitation and divides it by the FLOPS needed.
+(kflops = 10^3flops)
+If the excution time is higher the measured kflops per second gets smaller.
+Paravirtualization will effect the benchmark.
+Because it measures the kflops for the program not for the cpu.
+In paravirtualization the cpu can be shared between multiple guest systems.
+If more guest systems share the cpu linpack will share the cpu and the time to complete will be longer.
+Therefore the kflops per second will become smaller.
+
+3. Look at your LINPACK measurements. Are they consistent with your
+expectations? If not, what could be the reason?
+
+Google:
+    max	2219414.402
+    min	 943616.87
+
+The min kflops has factor of 2 compared to the max kflops.
+This is consistent with our expection.
+Because auf paravirtualization our instance shares the hardware with other instances.
+So on high workload for all instances the throughput for a instance can drop.
+Nevertheless the factor 2 is quite high, because this means the program took double the time finish.
 
 Memory benchmarks questions:
 1.
