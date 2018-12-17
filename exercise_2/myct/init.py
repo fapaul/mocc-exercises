@@ -5,7 +5,7 @@ import argparse
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='arboretum topology CLI')
+    parser = argparse.ArgumentParser(description='Initialize a container')
     parser.add_argument('container_path', type=str, help='Container to create')
 
     args = parser.parse_args()
