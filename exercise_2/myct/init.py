@@ -10,6 +10,14 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    print("Update Debootstrap.")
+    
+    debootstrap = "debootstrap"
+    subprocess.call(["apt-get", "install", debootstrap])
+    
+    print("Debootstrap version: ")
+    subprocess.call([debootstrap, "--version"])
+
     if os.path.exists(args.container_path):
         print("Error: path: {} already exists.".format(args.container_path))
         exit(-1)
@@ -22,12 +30,8 @@ if __name__ == '__main__':
     except OSError:
         print ('Error: Could not create folder at {}. '.format(args.container_path))        
         exit(-1)
-    
-    print("Debootstrap version: ")
-    deboostrap = "debootstrap"
-    subprocess.call([deboostrap, "--version"])
-    
+
     print("Setup Debian inside container.")
     
-    subprocess.call([deboostrap, "stable", args.container_path, "http://deb.debian.org/debian/"])
+    subprocess.call([debootstrap, "stable", args.container_path, "http://deb.debian.org/debian/"])
     
