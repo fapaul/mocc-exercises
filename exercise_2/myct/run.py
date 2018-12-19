@@ -18,6 +18,19 @@ if __name__ == '__main__':
 
     subprocess.call(["chroot", args.container_path, "mount", "-t", "proc", "proc", "/proc"])
 
+    if args.limit:
+
+        limit_params =  args.limit.split("=")
+        controller = limit_params[0]
+        value = limit_params[1]
+
+        cgroup_path = "/sys/fs/cgroup/memory/{}".format(args.container_path)
+        
+        if not os.path.exists(cgroup_path):
+            subprocess.call(["/bin/sh", "create_cgroup.sh", cgroup_path])
+        subprocess.call(["/bin/sh", "set_controller_value.sh", value, os.path.join(cgroup_path, controller)])
+        subprocess.call(["/bin/sh", "set_controller_value.sh", str(os.getppid()), ">", os.path.join(cgroup_path, "tasks")])
+
     if not args.namespace:
         proc_mount_point = "{}/{}/proc".format(os.getcwd(), args.container_path)
         subprocess.call(["unshare", "-f", "-p", "--mount-proc={}".format(proc_mount_point),
