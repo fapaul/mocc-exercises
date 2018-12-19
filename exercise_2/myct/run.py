@@ -16,5 +16,16 @@ if __name__ == '__main__':
         print("Error: container path: {} does not exists.".format(args.container_path))
         exit(-1)
 
-    subprocess.call(["chroot", args.container_path, args.executeable] + executeable_args)
+    subprocess.call(["chroot", args.container_path, "mount", "-t", "proc", "proc", "/proc"])
+
+    if not args.namespace:
+        proc_mount_point = "{}/{}/proc".format(os.getcwd(), args.container_path)
+        subprocess.call(["unshare", "-f", "-p", "--mount-proc={}".format(proc_mount_point),
+            "chroot", args.container_path, args.executeable] + executeable_args)
+
+    else:
+        proc_mount_point = "{}/{}/proc".format(os.getcwd(), args.container_path)
+        subprocess.call(["nsenter", "--pid=/proc/{}/ns/pid".format(args.namespace),
+            "unshare", "-f", "--mount-proc={}".format(proc_mount_point),
+            "chroot", args.container_path, args.executeable] + executeable_args)
     

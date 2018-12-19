@@ -34,7 +34,3 @@ if __name__ == '__main__':
     print("Setup Debian inside container.")
     
     subprocess.call([debootstrap, "stable", args.container_path, "http://deb.debian.org/debian/"])
-    
-    proc_mount_point = "{}/{}/proc".format(os.getcwd(), args.container_path)
-    subprocess.call(["mount", "-t", "proc", "proc", proc_mount_point])
-    subprocess.call(["unshare", "-p", "--mount-proc={}".format(proc_mount_point)])
