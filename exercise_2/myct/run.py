@@ -29,7 +29,7 @@ if __name__ == '__main__':
         if not os.path.exists(cgroup_path):
             subprocess.call(["/bin/sh", "create_cgroup.sh", cgroup_path])
         subprocess.call(["/bin/sh", "set_controller_value.sh", value, os.path.join(cgroup_path, controller)])
-        subprocess.call(["/bin/sh", "set_controller_value.sh", str(os.getppid()), ">", os.path.join(cgroup_path, "tasks")])
+        subprocess.call(["/bin/sh", "set_controller_value.sh", str(os.getppid()), os.path.join(cgroup_path, "tasks")])
 
     if not args.namespace:
         proc_mount_point = "{}/{}/proc".format(os.getcwd(), args.container_path)

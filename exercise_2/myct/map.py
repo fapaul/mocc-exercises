@@ -22,10 +22,6 @@ if __name__ == '__main__':
 
     complete_target_path = os.path.join(args.container_path, args.target_path)
 
-    if os.path.exists(complete_target_path):
-        print("Error: target path: {} already exists.".format(args.target_path))
-        exit(-1)
-
     try:
         if not os.path.exists(complete_target_path):
             os.makedirs(complete_target_path)
