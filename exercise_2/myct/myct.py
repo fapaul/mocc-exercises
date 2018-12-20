@@ -10,7 +10,7 @@ if __name__ == '__main__':
         exit(-1)
 
     task = sys.argv[1]
-    if not task in ["ini", "map", "run"]:
+    if not task in ["init", "map", "run"]:
         print("Error: Task {} not supported.".format(task))
         exit(-1) 
 
