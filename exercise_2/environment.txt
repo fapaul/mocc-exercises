@@ -1,5 +1,259 @@
 Containing details on your test systems (guest and hosts), e.g. Software versions, cpu features as of /proc/cpuinfo
 
-Host
+Host (on Google Cloud)
 
-lscpu:
+# Linux Kernel information
+cat /proc/version
+Linux version 4.9.0-8-amd64 (debian-kernel@lists.debian.org) (gcc version 6.3.0 20170516 (Debian 6.3.0-18+deb9u1) ) #1 SMP Debian 4.9.130-2 (2018-10-27)
+
+# cpu information
+cat /proc/cpuinfo
+
+processor   : 0
+vendor_id   : GenuineIntel
+cpu family  : 6
+model       : 63
+model name  : Intel(R) Xeon(R) CPU @ 2.30GHz
+stepping    : 0
+microcode   : 0x1
+cpu MHz     : 2300.000
+cache size  : 46080 KB
+physical id : 0
+siblings    : 1
+core id     : 0
+cpu cores   : 1
+apicid      : 0
+initial apicid  : 0
+fpu     : yes
+fpu_exception   : yes
+cpuid level : 13
+wp      : yes
+flags       : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm invpcid_single ssbd ibrs ibpb stibp kaiser fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt arat arch_capabilities
+bugs        : cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips    : 4600.00
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+# memory information
+cat /proc/meminfo
+
+MemTotal:        3792956 kB
+MemFree:          907776 kB
+MemAvailable:    3350944 kB
+Buffers:           97064 kB
+Cached:          2416504 kB
+SwapCached:            0 kB
+Active:           612684 kB
+Inactive:        2000112 kB
+Active(anon):      99408 kB
+Inactive(anon):     6416 kB
+Active(file):     513276 kB
+Inactive(file):  1993696 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:         99228 kB
+Mapped:            91500 kB
+Shmem:              6600 kB
+Slab:             238172 kB
+SReclaimable:     223980 kB
+SUnreclaim:        14192 kB
+KernelStack:        1504 kB
+PageTables:         3100 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     1896476 kB
+Committed_AS:     360564 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:       61428 kB
+DirectMap2M:     2822144 kB
+DirectMap1G:     1048576 kB
+
+# lscpu:
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                1
+On-line CPU(s) list:   0
+Thread(s) per core:    1
+Core(s) per socket:    1
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 63
+Model name:            Intel(R) Xeon(R) CPU @ 2.30GHz
+Stepping:              0
+CPU MHz:               2300.000
+BogoMIPS:              4600.00
+Hypervisor vendor:     KVM
+Virtualization type:   full
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              46080K
+NUMA node0 CPU(s):     0
+
+# lshw:
+    description: Computer
+    product: Google Compute Engine
+    vendor: Google
+    serial: GoogleCloud-3C875D574EAF130D33EA882C78DAC04E
+    width: 64 bits
+    capabilities: smbios-2.4 dmi-2.4 vsyscall32
+    configuration: boot=normal uuid=3C875D57-4EAF-130D-33EA-882C78DAC04E
+  *-core
+       description: Motherboard
+       product: Google Compute Engine
+       vendor: Google
+       physical id: 0
+     *-firmware
+          description: BIOS
+          vendor: Google
+          physical id: 0
+          version: Google
+          date: 01/01/2011
+          size: 96KiB
+     *-cpu
+          description: CPU
+          product: Intel(R) Xeon(R) CPU @ 2.30GHz
+          vendor: Intel Corp.
+          physical id: 401
+          bus info: cpu@0
+          slot: CPU 1
+          size: 2GHz
+          capacity: 2GHz
+          width: 64 bits
+          capabilities: fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp x86-64 constant_tsc rep_good nopl xtopology nonstop_tsc pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm invpcid_single ssbd ibrs ibpb stibp kaiser fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt arat arch_capabilities
+     *-memory
+          description: System Memory
+          physical id: 1000
+          size: 3840MiB
+          capacity: 3840MiB
+          capabilities: ecc
+          configuration: errordetection=multi-bit-ecc
+        *-bank
+             description: DIMM RAM
+             physical id: 0
+             slot: DIMM 0
+             size: 3840MiB
+             width: 64 bits
+     *-pci
+          description: Host bridge
+          product: 440FX - 82441FX PMC [Natoma]
+          vendor: Intel Corporation
+          physical id: 100
+          bus info: pci@0000:00:00.0
+          version: 02
+          width: 32 bits
+          clock: 33MHz
+        *-isa
+             description: ISA bridge
+             product: 82371AB/EB/MB PIIX4 ISA
+             vendor: Intel Corporation
+             physical id: 1
+             bus info: pci@0000:00:01.0
+             version: 03
+             width: 32 bits
+             clock: 33MHz
+             capabilities: isa
+             configuration: latency=0
+        *-bridge UNCLAIMED
+             description: Bridge
+             product: 82371AB/EB/MB PIIX4 ACPI
+             vendor: Intel Corporation
+             physical id: 1.3
+             bus info: pci@0000:00:01.3
+             version: 03
+             width: 32 bits
+             clock: 33MHz
+             capabilities: bridge
+             configuration: latency=0
+        *-generic
+             description: Non-VGA unclassified device
+             product: Virtio SCSI
+             vendor: Red Hat, Inc
+             physical id: 3
+             bus info: pci@0000:00:03.0
+             version: 00
+             width: 32 bits
+             clock: 33MHz
+             capabilities: msix bus_master cap_list
+             configuration: driver=virtio-pci latency=0
+             resources: irq:11 ioport:c000(size=64) memory:febfe000-febfe07f
+           *-virtio0 UNCLAIMED
+                description: Virtual I/O device
+                physical id: 0
+                bus info: virtio@0
+                configuration: driver=virtio_scsi
+        *-network
+             description: Ethernet controller
+             product: Virtio network device
+             vendor: Red Hat, Inc
+             physical id: 4
+             bus info: pci@0000:00:04.0
+             version: 00
+             width: 32 bits
+             clock: 33MHz
+             capabilities: msix bus_master cap_list
+             configuration: driver=virtio-pci latency=0
+             resources: irq:10 ioport:c040(size=64) memory:febff000-febff03f
+           *-virtio1
+                description: Ethernet interface
+                physical id: 0
+                bus info: virtio@1
+                logical name: eth0
+                serial: 42:01:0a:8e:00:04
+                capabilities: ethernet physical
+                configuration: autonegotiation=off broadcast=yes driver=virtio_net driverversion=1.0.0 ip=10.142.0.4 link=yes multicast=yes
+     *-scsi
+          physical id: 1
+          logical name: scsi0
+        *-disk
+             description: SCSI Disk
+             product: PersistentDisk
+             vendor: Google
+             physical id: 0.1.0
+             bus info: scsi@0:0.1.0
+             logical name: /dev/sda
+             version: 1
+             size: 10GiB (10GB)
+             capabilities: partitioned partitioned:dos
+             configuration: ansiversion=6 logicalsectorsize=512 sectorsize=4096 signature=0a9b4c77
+           *-volume
+                description: EXT4 volume
+                vendor: Linux
+                physical id: 1
+                bus info: scsi@0:0.1.0,1
+                logical name: /dev/sda1
+                logical name: /
+                version: 1.0
+                serial: a5ac3ac0-be9d-4194-acbc-119b7d980f78
+                size: 10238MiB
+                capacity: 10238MiB
+                capabilities: primary bootable journaled extended_attributes large_files huge_files dir_nlink 64bit extents ext4 ext2 initialized
+                configuration: created=2018-12-10 19:04:36 filesystem=ext4 lastmountpoint=/target/cb3caad7/root modified=2018-12-25 11:40:22 mount.fstype=ext4 mount.options=rw,relatime,data=ordered mounted=2018-12-10 19:04:37 state=mounted
+  *-network
+       description: Ethernet interface
+       physical id: 1
+       logical name: docker0
+       serial: 02:42:93:cf:f1:f3
+       capabilities: ethernet physical
+       configuration: broadcast=yes driver=bridge driverversion=2.3 firmware=N/A ip=172.17.0.1 link=no multicast=yes
