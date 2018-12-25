@@ -1,0 +1,5 @@
+Containing details on your test systems (guest and hosts), e.g. Software versions, cpu features as of /proc/cpuinfo
+
+Host
+
+lscpu:

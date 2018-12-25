@@ -1,0 +1,48 @@
+Used Debian Instance on 
+
+QEMU Installation (https://wiki.debian.org/QEMU)
+sudo apt-get install qemu-system-x86 
+
+Get possible image here: https://download.cloudlinux.com/cloudlinux/images/
+
+
+Docker Installation - Taken from Docker's official Docs
+(https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository)
+
+# Update the apt package index
+sudo apt-get update
+
+# Install packages to allow apt to use a repository over HTTPS
+sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+
+# Add Docker’s official GPG key
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+# Set up the stable repository
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+
+# Install the latest version of Docker CE
+sudo apt-get install docker-ce
+
+
+
+Rumprun Installation (https://github.com/rumpkernel/wiki/wiki/Tutorial:-Building-Rumprun-Unikernels)
+
+# Install necessary dependencies zlib
+apt-get install zlib1g-dev
+
+# Clone rumprun repo
+git clone http://repo.rumpkernel.org/rumprun
+
+# Update the registered submodules to match what the superproject expects by cloning missing submodules and updating the working tree of the submodules.
+cd rumprun
+git submodule update --init
+
+# Build rumprun script
+CC=cc ./build-rr.sh hw
+
+# Put the toolchain into our path so that we can execute the compiler later
+export PATH="${PATH}:$(pwd)/rumprun/bin"
