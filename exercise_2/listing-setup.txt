@@ -1,12 +1,11 @@
 Used Debian Instance on 
 
-QEMU Installation (https://wiki.debian.org/QEMU)
+#### QEMU Installation (https://wiki.debian.org/QEMU)
 sudo apt-get install qemu-system-x86 
 
-Get possible image here: https://download.cloudlinux.com/cloudlinux/images/
 
 
-Docker Installation - Taken from Docker's official Docs
+#### Docker Installation - Taken from Docker's official Docs
 (https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository)
 
 # Update the apt package index
@@ -27,9 +26,12 @@ sudo add-apt-repository \
 # Install the latest version of Docker CE
 sudo apt-get install docker-ce
 
+# Copy Scripts (Google Cloud specific)
+gcloud compute scp --recurse scripts robertstark@${instance-name}:~/scripts --zone ${zone}
 
 
-Rumprun Installation (https://github.com/rumpkernel/wiki/wiki/Tutorial:-Building-Rumprun-Unikernels)
+
+#### Rumprun Installation (https://github.com/rumpkernel/wiki/wiki/Tutorial:-Building-Rumprun-Unikernels)
 
 # Install necessary dependencies zlib
 apt-get install zlib1g-dev
@@ -46,3 +48,43 @@ CC=cc ./build-rr.sh hw
 
 # Put the toolchain into our path so that we can execute the compiler later
 export PATH="${PATH}:$(pwd)/rumprun/bin"
+
+
+
+#### Set up docker container and run benchmarks
+
+# Set up Debian Docker container
+docker run -it debian
+
+# Copy scripts to Docker container
+docker cp ./scripts ${containerId}:/scripts
+
+# Connect to docker container
+docker exec -it ${containerId} /bin/bash/
+
+# Install gcc and fio
+apt-get install gcc
+apt-get install fio
+
+# Run scripts
+./run_benchmarks.sh
+
+
+#### Set up QEMU Debian image (see: https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances?hl=de)
+
+# Download Debian image (https://people.debian.org/~aurel32/qemu/amd64/)
+wget https://people.debian.org/~aurel32/qemu/amd64/debian_squeeze_amd64_standard.qcow2
+
+# Create QEMU image file (e.g. virtual hard drive)
+# Use QEMU Copy On Write file format (qcow2, newer file format for disk image files used by QEMU) and occupy 8Gigabyte max. disk storage
+qemu-img create -f qcow2 virtualdebian.img 8G
+
+# Start Debian image
+# -hda: specifes QEMU image file
+# -m: specifies memory space (512Mb)
+# -curses: display the VGA output when in text mode using a curses/ncurses interface
+sudo qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2 -m 512 -curses
+
+
+# To use KVM add flag -enable-kvm
+sudo qemu-system-x86_64 -enable-kvm -hda debian_squeeze_amd64_standard.qcow2 -m 512 -curses

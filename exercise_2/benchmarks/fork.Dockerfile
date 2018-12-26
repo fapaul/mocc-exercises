@@ -1,0 +1,1 @@
+Ran scripts manually and at once using run_benchmarks.sh
