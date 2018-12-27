@@ -3,16 +3,18 @@ CPU benchmark questions:
 Native: Max: 2470122, Min: 2334447 Avg: 2428607.5
 Docker: Max: 2363591, Min: 2252486 Avg: 2336404
 Quemu: Max: 34876, Min: 33399, Avg: 34341
-Quemu KVM:
+Quemu KVM: Max: 2291653, Min: 2173299, Avg: 2257457
+
+Between native, docker and quemu kvm are only slighty differences due to the good core virtualization. The default qemu shows a drop in performance due to the binary-translation.
 
 Memory benchmark questions:
 1. Look at your memsweep measurements. Are they consistent with your expectations? If not, what could be the reason?
 Native: Max: 64.12, Min: 6, Avg: 32.6 
 Docker: Max: 6.95 Min: 6.6, Avg: 6.8
-Quemu:
-Quemu KVM:
+Quemu: Max: 122, Min: 120, Avg: 121
+Quemu KVM: Max: 6.8, Min: 6.6, Avg: 6.7
 
-The difference between the native and docker benchmark might relate to the fact that the docker hypervisor optimizes the memory access. On the other hand on the native machine it could happen that we get a page miss when accessing the memory.
+The difference between the native and docker benchmark might relate to the fact that the docker hypervisor optimizes the memory access. On the other hand on the native machine it could happen that we get a page miss when accessing the memory. Another aspect is the difference between the qemu images hereby the significant difference is explainble by the binary-translation of the default quemu against the full virtualization in the KVM.
 
 
 Disk benchmark questions:
@@ -20,7 +22,9 @@ Disk benchmark questions:
 Native: Max: 2461, Min: 1695, Avg: 2368.19 
 Docker: Max: 2392, Min: 1610, Avg: 2269
 Quemu: Max: 2327, Min: 2015, Avg: 2200
-Quemu KVM:
+Quemu KVM: Max: 839, Min: 787, Avg: 830
+
+The benchmark shows the cost of the additional abstraction layer of the KVM where the IOPS are much lower.
 
 
 2. Which disk format did you use for qemu? How do you expect this benchmark to behave differently on other disk formats?
