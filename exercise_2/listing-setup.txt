@@ -3,7 +3,12 @@ Used Debian Instance on
 #### QEMU Installation (https://wiki.debian.org/QEMU)
 sudo apt-get install qemu-system-x86 
 
-
+#### KVM Installation 
+# Step by Step setup through https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances?hl
+# Important is hereby enabling kvm virtualization by adding the flag --licenses "https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx" 
+gcloud compute images create nested-vm-image \
+  --source-disk disk1 --source-disk-zone us-central1-b \
+  --licenses "https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx"
 
 #### Docker Installation - Taken from Docker's official Docs
 (https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository)
@@ -50,7 +55,6 @@ CC=cc ./build-rr.sh hw
 export PATH="${PATH}:$(pwd)/rumprun/bin"
 
 
-
 #### Set up docker container and run benchmarks
 
 # Set up Debian Docker container
@@ -74,7 +78,7 @@ apt-get install fio
 
 # Download Debian image (https://people.debian.org/~aurel32/qemu/amd64/)
 # Warning: Ran into errors installing gcc and fio through apt-get using debian_squeeze image; Instead used debian_wheezy
-wget https://people.debian.org/~aurel32/qemu/amd64/debian_wheezy_amd64_standard.qcow2
+wget https://people.debian.org/~aurel32/qemu/md64/debian_wheezy_amd64_standard.qcow2
 
 # Start Debian image
 # -m: specifies memory space (512Mb)
