@@ -73,18 +73,18 @@ apt-get install fio
 #### Set up QEMU Debian image (see: https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances?hl=de)
 
 # Download Debian image (https://people.debian.org/~aurel32/qemu/amd64/)
-wget https://people.debian.org/~aurel32/qemu/amd64/debian_squeeze_amd64_standard.qcow2
-
-# Create QEMU image file (e.g. virtual hard drive)
-# Use QEMU Copy On Write file format (qcow2, newer file format for disk image files used by QEMU) and occupy 8Gigabyte max. disk storage
-qemu-img create -f qcow2 virtualdebian.img 8G
+# Warning: Ran into errors installing gcc and fio through apt-get using debian_squeeze image; Instead used debian_wheezy
+wget https://people.debian.org/~aurel32/qemu/amd64/debian_wheezy_amd64_standard.qcow2
 
 # Start Debian image
-# -hda: specifes QEMU image file
 # -m: specifies memory space (512Mb)
 # -curses: display the VGA output when in text mode using a curses/ncurses interface
-sudo qemu-system-x86_64 -hda debian_squeeze_amd64_standard.qcow2 -m 512 -curses
-
+sudo qemu-system-x86_64 -hda debian-9.6.1-20181206-openstack-amd64.qcow2 -m 512 -curses
 
 # To use KVM add flag -enable-kvm
 sudo qemu-system-x86_64 -enable-kvm -hda debian_squeeze_amd64_standard.qcow2 -m 512 -curses
+
+
+# Copied benchmarks using wget
+# Had to set -std=c99 flag for gcc
+
