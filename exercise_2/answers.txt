@@ -12,6 +12,8 @@ Docker: Max: 6.95 Min: 6.6, Avg: 6.8
 Quemu:
 Quemu KVM:
 
+The difference between the native and docker benchmark might relate to the fact that the docker hypervisor optimizes the memory access. On the other hand on the native machine it could happen that we get a page miss when accessing the memory.
+
 
 Disk benchmark questions:
 1. Look at your disk write measurements. Are they consistent with your expectations? If not, what could be the reason?
