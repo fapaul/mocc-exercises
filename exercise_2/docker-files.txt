@@ -1,0 +1,2 @@
+For the docker benchmarks started a single container with our benchmark scripts and manually started the benchamrk with ssh. Therefore there are no Dockerfiles.
+In addition for nginx we used the following command `docker run --name some-nginx -v <file-path>:/usr/share/nginx/html:ro -d -p 8080:80 nginx`
