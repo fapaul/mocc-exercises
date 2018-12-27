@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-cmds=("./measure-cpu.sh" "./measure-disk-random.sh" "./measure-fork.sh" "./measure-mem.sh")
-
+cmds=("./measure-nginx.sh localhost:8080/test.nginx")
 for cmd in "${cmds[@]}"; 
 do
     for i in {1..48}

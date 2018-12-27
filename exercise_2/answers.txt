@@ -1,20 +1,39 @@
 CPU benchmark questions:
 1. Look at your LINPACK measurements. Are they consistent with your expectations? If not, what could be the reason?
-
+Native: Max: 2470122, Min: 2334447 Avg: 2428607.5
+Docker: Max: 2363591, Min: 2252486 Avg: 2336404
+Quemu: Max: 34876, Min: 33399, Avg: 34341
+Quemu KVM:
 
 Memory benchmark questions:
 1. Look at your memsweep measurements. Are they consistent with your expectations? If not, what could be the reason?
+Native: Max: 64.12, Min: 6, Avg: 32.6 
+Docker: Max: 6.95 Min: 6.6, Avg: 6.8
+Quemu:
+Quemu KVM:
 
 
 Disk benchmark questions:
 1. Look at your disk write measurements. Are they consistent with your expectations? If not, what could be the reason?
+Native: Max: 2461, Min: 1695, Avg: 2368.19 
+Docker: Max: 2392, Min: 1610, Avg: 2269
+Quemu: Max: 2327, Min: 2015, Avg: 2200
+Quemu KVM:
 
 
 2. Which disk format did you use for qemu? How do you expect this benchmark to behave differently on other disk formats?
+We used the qcow2 format which implements copy-on-write. Every time the base image is changed (e.g. something is written to disk) it creates a patch file and does not change the base image. Another available is raw which does not support copy-on-write. Thus it might provide better performance because no new file is created and the image is updated directly.
+
 
 
 Fork benchmark questions:
 1. Look at your fork sum measurements. Are they consistent with your expectations? If not, what could be the reason?
+Native: Max: 49550, Min: 49550, Avg: 49550
+Docker: Max: 49550, Min: 49550, Avg: 49550
+Quemu: Max: 49550, Min: 49550, Avg: 49550
+Quemu KVM: Max: 49550, Min: 49550, Avg: 49550
+
+The results are consistent all the computations were done correctly.
 
 
 2. [not optional] Why did we exclude this benchmark from the Rump Unikernel? How can you adapt the experiment for this platform?
@@ -22,6 +41,10 @@ Since it is a unikernel it does not support fork() as syscall due to the lack of
 
 Nginx benchmark questions:
 1. Look at your nginx measurements. Are they consistent with your expectations? If not, what could be the reason?
+Native: Max: 106, Min: 87, Avg: 102.6
+Docker: Max: 6, Min: 5, Avg: 5.4
+Quemu:
+Quemu KVM:
 
 
 2. How do your measurements relate to the disk benchmark findings?
