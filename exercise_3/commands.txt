@@ -1,0 +1,19 @@
+# Setup all machines with key-less ssh
+
+git clone git@github.com:kubernetes-sigs/kubespray.git
+
+mkdir ./kubespray/inventory/mocc
+cp ./kubespray/inventory/sample ./kubespray/inventory/mocc
+
+# Replace ip addresses placeholder first
+cp ./hosts.ini ./kubespray/inventory/mocc/
+
+cd ./kubespray
+
+git checkout tags/v2.8.1 -b mocc_version
+
+pip install ansible==2.6
+pip install netaddr
+
+# Point to private key for key-less access to machines
+ansible-playbook -i inventory/mocc/hosts.ini cluster.yml -b -v --private-key=~/.ssh/id_rsa
