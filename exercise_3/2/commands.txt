@@ -1,0 +1,7 @@
+# First login into your docker hub account
+docker login --username=fpaul
+
+docker build -t fapaul/mocc-nginx:backend -f backend.Dockerfile .
+docker build -t fapaul/mocc-nginx:frontend -f frontend.Dockerfile .
+
+docker push fpaul/mocc-nginx
