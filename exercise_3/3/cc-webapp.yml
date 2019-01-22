@@ -7,128 +7,125 @@
 
 - hosts: node1
   tasks:
-
-  - name: Create a k8s namespace
-  k8s:
-    state: present
-    name: mocc
-    api_version: v1
-    kind: Namespace
-
-  - name: Create backend service
-  k8s:
-    state: present
-    namespace: mocc
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: cc-backend-service
-      labels:
-        app: backend
-    spec:
-      ports:
-      - port: 80
-        name: http
-      type: ClusterIP
-      selector:
-        app: backend
-
-  - name: Create backend deployment
-  k8s:
-    state: present
-    namespace: mocc
-    apiVersion: v1
-    kind: Deployment
-    metadata:
-      name: cc-backend-service
-    spec:
-      selector:
-        matchLabels:
-          app: backend
-      replicas: 3
-      template:
+    - name: Create a k8s namespace
+      k8s:
+        state: present
+        name: mocc
+        api_version: v1
+        kind: Namespace
+    - name: Create backend service
+      k8s:
+        state: present
+        namespace: mocc
+        apiVersion: v1
+        kind: Service
         metadata:
+          name: cc-backend-service
           labels:
             app: backend
-      spec:
-      containers:
-      - name: backend
-        image: fapaul/mocc-nginx:backend
-        ports:
-        - containerPort: 80
-          name: http
-        livenessProbe:
-            httpGet:
-              path: /ready
-              port: 80
-              scheme: HTTP
-              httpHeaders:
-         - name: CC-READY
-           value: Backend
-        readinessProbe:
-            httpGet:
-              path: /ready
-              port: 80
-              scheme: HTTP
-              httpHeaders:
-         - name: CC-READY
-           value: Backend
-
-  - name: Create frontend service
-  k8s:
-    state: present
-    namespace: mocc
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: cc-frontend-service
-      labels:
-        app: frontend
-    spec:
-      ports:
-      - port: 80
-        name: http
-      type: NodePort
-      selector:
-        app: frontend 
-
-  - name: Create frontend deployment
-  k8s:
-    state: present
-    namespace: mocc
-    apiVersion: v1
-    kind: Deployment
-    metadata:
-      name: cc-frontend-service
-    spec:
-      selector:
-        matchLabels:
-          app: frontend 
-      replicas: 3
-      template:
+        spec:
+          ports:
+          - port: 80
+            name: http
+          type: ClusterIP
+          selector:
+            app: backend
+    - name: Create backend deployment
+      k8s:
+        state: present
+        namespace: mocc
+        apiVersion: v1
+        kind: Deployment
         metadata:
+          name: cc-backend-service
+        spec:
+          selector:
+            matchLabels:
+              app: backend
+          replicas: 3
+          template:
+            metadata:
+              labels:
+                app: backend
+          spec:
+          containers:
+          - name: backend
+            image: fapaul/mocc-nginx:backend
+            ports:
+            - containerPort: 80
+              name: http
+            livenessProbe:
+                httpGet:
+                  path: /ready
+                  port: 80
+                  scheme: HTTP
+                  httpHeaders:
+                  - name: CC-READY
+                    value: Backend
+            readinessProbe:
+                httpGet:
+                  path: /ready
+                  port: 80
+                  scheme: HTTP
+                  httpHeaders:
+                  - name: CC-READY
+                    value: Backend
+
+    - name: Create frontend service
+      k8s:
+        state: present
+        namespace: mocc
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: cc-frontend-service
           labels:
+            app: frontend
+        spec:
+          ports:
+          - port: 80
+            name: http
+          type: NodePort
+          selector:
             app: frontend 
-      spec:
-      containers:
-      - name: frontend
-        image: fapaul/mocc-nginx:frontend
-        ports:
-        - containerPort: 80
-          name: http
-        livenessProbe:
-            httpGet:
-              path: /ready
-              port: 80
-              scheme: HTTP
-              httpHeaders:
-         - name: CC-READY
-           value: Frontend
-        readinessProbe:
-            httpGet:
-              path: /ready
-              port: 80
-              scheme: HTTP
-              httpHeaders:
-         - name: CC-READY
-           value: Frontend
+
+    - name: Create frontend deployment
+      k8s:
+        state: present
+        namespace: mocc
+        apiVersion: v1
+        kind: Deployment
+        metadata:
+          name: cc-frontend-service
+        spec:
+          selector:
+            matchLabels:
+              app: frontend 
+          replicas: 3
+          template:
+            metadata:
+              labels:
+                app: frontend 
+          spec:
+          containers:
+          - name: frontend
+            image: fapaul/mocc-nginx:frontend
+            ports:
+            - containerPort: 80
+              name: http
+            livenessProbe:
+                httpGet:
+                  path: /ready
+                  port: 80
+                  scheme: HTTP
+                  httpHeaders:
+                  - name: CC-READY
+                    value: Frontend
+            readinessProbe:
+                httpGet:
+                  path: /ready
+                  port: 80
+                  scheme: HTTP
+                  httpHeaders:
+                  - name: CC-READY
+                    value: Frontend
