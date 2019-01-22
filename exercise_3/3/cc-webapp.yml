@@ -52,7 +52,8 @@
               spec:
                 containers:
                 - name: backend
-                  image: fapaul/mocc-nginx:backend
+                  image: fpaul/mocc-nginx:backend
+                  imagePullPolicy: Always
                   ports:
                   - containerPort: 80
                     name: http
@@ -111,7 +112,8 @@
               spec:
                 containers:
                 - name: frontend
-                  image: fapaul/mocc-nginx:frontend
+                  image: fpaul/mocc-nginx:frontend
+                  imagePullPolicy: Always
                   ports:
                   - containerPort: 80
                     name: http
