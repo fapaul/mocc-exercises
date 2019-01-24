@@ -3,7 +3,7 @@
 git clone git@github.com:kubernetes-sigs/kubespray.git
 
 mkdir ./kubespray/inventory/mocc
-cp ./kubespray/inventory/sample ./kubespray/inventory/mocc
+cp -R ./kubespray/inventory/sample ./kubespray/inventory/mocc
 
 # Replace ip addresses placeholder first
 cp ./hosts.ini ./kubespray/inventory/mocc/
